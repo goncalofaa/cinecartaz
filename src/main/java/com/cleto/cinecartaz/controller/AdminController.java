@@ -29,9 +29,17 @@ public class AdminController {
 
     @GetMapping(value = "/cinema/{cinemaId}")
     public ResponseEntity<Object> getCinemaById(@PathVariable long cinemaId){
-        System.out.println("CINEMA ID: "+cinemaId);
         return new ResponseEntity<>(cinemaService.getCinemaById(cinemaId), HttpStatus.OK);
     }
+
+    @DeleteMapping(value = "/cinema/{cinemaId}")
+    public ResponseEntity<Object> deleteCinemaById(@PathVariable long cinemaId){
+
+        cinemaService.deleteCinemaById(cinemaId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
     @GetMapping(value = "/cinema")
     public ResponseEntity<Object> getCarsWithQuery(@RequestParam(required = false, defaultValue = "NONE") String name,

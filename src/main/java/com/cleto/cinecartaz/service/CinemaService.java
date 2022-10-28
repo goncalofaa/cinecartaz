@@ -55,4 +55,8 @@ public class CinemaService {
         List<Cinema> cinemas = mongoTemplate.find(dynamicQuery.with(Sort.by(Sort.Direction.ASC,"name")), Cinema.class, "cinemas");
         return cinemas;
     }
+
+    public void deleteCinemaById(long cinemaId) {
+        cinemaRepository.deleteById(cinemaId);
+    }
 }

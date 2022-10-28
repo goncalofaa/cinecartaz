@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface CinemaRepository extends MongoRepository <Cinema, String>{
+public interface CinemaRepository extends MongoRepository <Cinema, Long>{
 
     Cinema findCinemaById(long id);
 

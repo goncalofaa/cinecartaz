@@ -1,5 +1,6 @@
 package com.cleto.cinecartaz.model;
 
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -8,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "cinemas")
+@NoArgsConstructor
 @CompoundIndex( def = "{'name' : 1, 'company' : 1}", unique = true)
 public class Cinema {
 
     @Id
-    private int id;
+    private long id;
     private String name;
     private String company;
     private String county;
@@ -28,7 +30,7 @@ public class Cinema {
         this.sessions = new ArrayList<>();
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

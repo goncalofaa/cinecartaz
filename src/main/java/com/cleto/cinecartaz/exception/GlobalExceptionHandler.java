@@ -22,4 +22,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException(IllegalArgumentException e) {
+        Map<String, Object> body = new HashMap<>();
+        if (e.getMessage() == "No ID Provided") body.put("description", "Incorrect car data provided");
+
+        return new ResponseEntity<>(body, HttpStatus.valueOf(400));
+    }
+
 }

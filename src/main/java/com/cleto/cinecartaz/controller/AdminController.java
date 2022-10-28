@@ -18,7 +18,7 @@ public class AdminController {
     private CinemaService cinemaService;
 
     @PostMapping(value = "/cinema")
-    public ResponseEntity<Object> insert(@RequestBody Cinema cinema){
+    public ResponseEntity<Object> insertCinema(@RequestBody Cinema cinema){
         cinemaService.saveCinema(cinema);
 
         Map<String, String> responseObject = new HashMap<>();
@@ -26,4 +26,12 @@ public class AdminController {
 
         return new ResponseEntity<>(responseObject, HttpStatus.CREATED);
     }
+
+    @GetMapping(value = "/cinema/{cinemaId}")
+    public ResponseEntity<Object> getCinemaById(@PathVariable long cinemaId){
+        System.out.println("CINEMA ID: "+cinemaId);
+        return new ResponseEntity<>(cinemaService.getCinemaById(cinemaId), HttpStatus.OK);
+    }
+
+
 }

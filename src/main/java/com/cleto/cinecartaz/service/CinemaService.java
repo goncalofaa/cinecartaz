@@ -5,6 +5,8 @@ import com.cleto.cinecartaz.repository.CinemaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CinemaService {
 
@@ -15,4 +17,7 @@ public class CinemaService {
         cinemaRepository.insert(cinema);
     }
 
+    public Optional<Cinema> getCinemaById(long cinemaId) {
+        return Optional.ofNullable(cinemaRepository.findCinemaById(cinemaId));
+    }
 }

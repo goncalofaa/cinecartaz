@@ -10,7 +10,7 @@ import java.util.List;
 public class Movie {
 
     @Id
-    private int id;
+    private long id;
 
     private String title;
 
@@ -30,7 +30,7 @@ public class Movie {
         this.sessions = sessions;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

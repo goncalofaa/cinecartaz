@@ -10,4 +10,6 @@ public interface CinemaRepository extends MongoRepository <Cinema, String>{
 
     List<Cinema> findCinemasByCounty(String city);
 
+    Cinema findCinemaById(long id);
+
 }

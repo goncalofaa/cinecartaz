@@ -33,5 +33,12 @@ public class AdminController {
         return new ResponseEntity<>(cinemaService.getCinemaById(cinemaId), HttpStatus.OK);
     }
 
+    @GetMapping(value = "/cinema")
+    public ResponseEntity<Object> getCarsWithQuery(@RequestParam(required = false, defaultValue = "NONE") String name,
+                                              @RequestParam(required = false, defaultValue = "NONE") String company,
+                                              @RequestParam(required = false, defaultValue = "NONE") String county,
+                                              @RequestParam(required = false, defaultValue = "NONE") String location){
+        return new ResponseEntity<>(cinemaService.getCinemasByNameCompanyLocationOrCounty(name, company, county, location), HttpStatus.OK);
+    }
 
 }

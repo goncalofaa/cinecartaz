@@ -1,12 +1,15 @@
 package com.cleto.cinecartaz.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document("movies")
+@CompoundIndex(name = "movie_compound_index",def = "{'title' : 1, 'duration' : 1}", unique = true)
 public class Movie {
 
     @Id
@@ -22,12 +25,12 @@ public class Movie {
 
     private List<Session> sessions;
 
-    public Movie(String title, String original_title, String genre, LocalTime duration, List<Session> sessions) {
+    public Movie(String title, String original_title, String genre, LocalTime duration) {
         this.title = title;
         this.original_title = original_title;
         this.genre = genre;
         this.duration = duration;
-        this.sessions = sessions;
+        this.sessions = new ArrayList<>();
     }
 
     public long getId() {

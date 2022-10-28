@@ -1,7 +1,9 @@
 package com.cleto.cinecartaz.model;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.CompoundIndex;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -10,9 +12,10 @@ import java.util.List;
 
 @Document(collection = "cinemas")
 @NoArgsConstructor
-@CompoundIndex( def = "{'name' : 1, 'company' : 1}", unique = true)
+@CompoundIndex(name = "cinema_compound_index",def = "{'name' : 1, 'location' : 1, 'company':1}", unique = true)
 public class Cinema {
-
+    @Transient
+    public static final String SEQUENCE_NAME = "cinema_sequence";
     @Id
     private long id;
     private String name;
@@ -20,14 +23,11 @@ public class Cinema {
     private String county;
     private String location;
 
-    private List<Session> sessions;
-
-    public Cinema(String name, String company, String address, String county, String location) {
+    public Cinema(String name, String company, String county, String location) {
         this.name = name;
         this.company = company;
         this.county = county;
         this.location = location;
-        this.sessions = new ArrayList<>();
     }
 
     public long getId() {
@@ -48,10 +48,6 @@ public class Cinema {
 
     public String getLocation() {
         return location;
-    }
-
-    public List<Session> getSessions() {
-        return sessions;
     }
 
     public void setId(int id) {
@@ -75,10 +71,6 @@ public class Cinema {
         this.location = location;
     }
 
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
-    }
-
     @Override
     public String toString() {
         return "Cinema{" +
@@ -87,7 +79,6 @@ public class Cinema {
                 ", company='" + company + '\'' +
                 ", county='" + county + '\'' +
                 ", location='" + location + '\'' +
-                ", sessions=" + sessions +
                 '}';
     }
 }

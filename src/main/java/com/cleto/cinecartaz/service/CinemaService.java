@@ -7,6 +7,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -59,4 +60,18 @@ public class CinemaService {
     public void deleteCinemaById(long cinemaId) {
         cinemaRepository.deleteById(cinemaId);
     }
+
+    public void updateCinema(Cinema cinema) {
+        if (cinemaRepository.findById(cinema.getId()).isEmpty()) {
+            throw new IllegalArgumentException("No Cinema Matching");
+
+        } else {
+            Query dynamicQuery = new Query();
+            dynamicQuery.addCriteria(new Criteria().andOperator(Criteria.where("id").is(cinema.getId())));
+            Update updateDefinition = new Update().set("company", cinema.getCompany()).set("location", cinema.getLocation()).set("name", cinema.getCompany() + cinema.getLocation());
+
+            mongoTemplate.findAndModify(dynamicQuery, updateDefinition, Cinema.class);
+        }
+    }
+
 }

@@ -42,11 +42,21 @@ public class AdminController {
 
 
     @GetMapping(value = "/cinema")
-    public ResponseEntity<Object> getCarsWithQuery(@RequestParam(required = false, defaultValue = "NONE") String name,
+    public ResponseEntity<Object> getCinemasWithQuery(@RequestParam(required = false, defaultValue = "NONE") String name,
                                               @RequestParam(required = false, defaultValue = "NONE") String company,
                                               @RequestParam(required = false, defaultValue = "NONE") String county,
                                               @RequestParam(required = false, defaultValue = "NONE") String location){
         return new ResponseEntity<>(cinemaService.getCinemasByNameCompanyLocationOrCounty(name, company, county, location), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/cinema")
+    public ResponseEntity<Object> updateCinema(@RequestBody Cinema cinema){
+
+        cinemaService.updateCinema(cinema);
+
+        Map<String, String> responseObject = new HashMap<>();
+        responseObject.put("description", "Cinema Updated");
+        return new ResponseEntity<>(responseObject, HttpStatus.OK);
     }
 
 }
